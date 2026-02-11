@@ -32,7 +32,7 @@ export default function TestHeridas() {
     if (Object.keys(respuestas).length < 15) return alert("Por favor, responde las 15 preguntas.");
     
     const puntos: any = { Rechazo: 0, Abandono: 0, Humillación: 0, Traición: 0, Injusticia: 0 };
-    Object.values(respuestas).forEach((r: any) => puntos[r.herida] += r.valor);
+    Object.values(respuestas).forEach((r: any) => { puntos[r.herida] += r.valor; });
     
     const ganador = Object.entries(puntos).sort((a: any, b: any) => b[1] - a[1])[0][0];
     setResultado(ganador);
@@ -43,17 +43,17 @@ export default function TestHeridas() {
       <div className="max-w-2xl w-full">
         {!resultado ? (
           <>
-            <h1 className="text-3xl mb-10 italic text-[#8B735B] text-center">El Mapa del Ayer</h1>
+            <h1 className="text-3xl mb-10 italic text-[#8B735B] text-center font-bold">El Mapa del Ayer</h1>
             <div className="space-y-6">
               {preguntas.map((p) => (
-                <div key={p.id} className="bg-white p-6 rounded-xl border border-[#EAE4D9]">
+                <div key={p.id} className="bg-white p-6 rounded-xl border border-[#EAE4D9] shadow-sm">
                   <p className="text-lg mb-6">{p.id}. {p.texto}</p>
                   <div className="flex justify-between gap-2">
                     {[1, 2, 3, 4, 5].map((n) => (
                       <button 
                         key={n} 
                         onClick={() => responder(p.id, p.herida, n)}
-                        className={`w-10 h-10 rounded-full border ${respuestas[p.id]?.valor === n ? 'bg-[#8B735B] text-white' : 'text-gray-400'}`}
+                        className={`w-10 h-10 rounded-full border transition-all ${respuestas[p.id]?.valor === n ? 'bg-[#8B735B] text-white border-[#8B735B]' : 'text-gray-400 border-[#EAE4D9]'}`}
                       >
                         {n}
                       </button>
@@ -61,14 +61,27 @@ export default function TestHeridas() {
                   </div>
                 </div>
               ))}
-              <button onClick={calcular} className="w-full bg-[#2C2C2C] text-white py-5 rounded-full font-bold tracking-widest mt-10">OBTENER DIAGNÓSTICO</button>
-            </>
+              <button 
+                onClick={calcular} 
+                className="w-full bg-[#2C2C2C] text-white py-5 rounded-full font-bold tracking-[0.2em] mt-10 shadow-lg hover:bg-[#4A4A4A]"
+              >
+                OBTENER DIAGNÓSTICO
+              </button>
+            </div>
+          </>
         ) : (
-          <div className="text-center bg-white p-10 rounded-3xl border border-[#EAE4D9] shadow-xl">
-            <h2 className="text-[#8B735B] text-5xl italic mb-6">{resultado}</h2>
-            <p className="text-gray-600 mb-10">Tu herida principal ha sido identificada. Es momento de empezar a sanar.</p>
-            <a href="https://wa.me/51915208903" className="bg-[#25D366] text-white py-4 px-8 rounded-full font-bold">SANAR POR WHATSAPP</a>
-            <Link href="/" className="block mt-6 text-gray-400 underline">Volver al inicio</Link>
+          <div className="text-center bg-white p-12 rounded-3xl border border-[#EAE4D9] shadow-2xl animate-fade-in mt-10">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Tu herida principal es</h2>
+            <h3 className="text-[#8B735B] text-5xl italic font-bold mb-8">{resultado}</h3>
+            <div className="w-12 h-1 bg-[#8B735B] mx-auto mb-8"></div>
+            <p className="text-gray-600 mb-10 text-xl italic">"Es momento de transformar esta herida en tu mayor fortaleza."</p>
+            <a 
+              href="https://wa.me/51915208903" 
+              className="bg-[#25D366] text-white py-4 px-10 rounded-full font-bold shadow-lg hover:bg-[#128C7E] inline-block"
+            >
+              SANAR POR WHATSAPP
+            </a>
+            <Link href="/" className="block mt-10 text-gray-400 underline text-sm">Volver al inicio</Link>
           </div>
         )}
       </div>

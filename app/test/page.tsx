@@ -64,17 +64,37 @@ export default function TestHeridas() {
       <div className="max-w-2xl w-full">
         {!resultado ? (
           <>
-            <h1 className="text-3xl mb-10 italic text-[#8B735B] text-center font-bold">El Mapa del Ayer</h1>
+            <h1 className="text-3xl mb-4 italic text-[#8B735B] text-center font-bold">El Mapa del Ayer</h1>
+            
+            {/* GUÍA DE PUNTUACIÓN (Valor agregado para el usuario) */}
+            <div className="bg-white p-5 rounded-2xl border border-[#EAE4D9] mb-10 text-center shadow-sm">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-3 font-sans">Guía de escala emocional</p>
+              <div className="flex justify-between items-center px-4 md:px-10">
+                <div className="flex flex-col items-center">
+                  <span className="text-xl font-bold text-[#EAE4D9]">1</span>
+                  <span className="text-[9px] uppercase tracking-tighter text-gray-400 font-sans">Nunca</span>
+                </div>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5, 6, 7].map(n => <div key={n} className="w-1 h-1 rounded-full bg-[#F3EEE5]"></div>)}
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-xl font-bold text-[#8B735B]">5</span>
+                  <span className="text-[9px] uppercase tracking-tighter text-[#8B735B] font-sans font-bold">Siempre</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-gray-500 mt-4 italic">Responde con honestidad según te sientas en esta etapa de tu vida.</p>
+            </div>
+
             <div className="space-y-6">
               {preguntas.map((p) => (
-                <div key={p.id} className="bg-white p-6 rounded-xl border border-[#EAE4D9] shadow-sm">
-                  <p className="text-lg mb-6">{p.id}. {p.texto}</p>
-                  <div className="flex justify-between gap-2">
+                <div key={p.id} className="bg-white p-8 rounded-2xl border border-[#EAE4D9] shadow-sm transition-all hover:shadow-md">
+                  <p className="text-lg mb-8 leading-relaxed font-light">{p.id}. {p.texto}</p>
+                  <div className="flex justify-between gap-2 max-w-xs mx-auto">
                     {[1, 2, 3, 4, 5].map((n) => (
                       <button 
                         key={n} 
                         onClick={() => responder(p.id, p.herida, n)}
-                        className={`w-10 h-10 rounded-full border transition-all ${respuestas[p.id]?.valor === n ? 'bg-[#8B735B] text-white border-[#8B735B]' : 'text-gray-400 border-[#EAE4D9]'}`}
+                        className={`w-10 h-10 md:w-12 md:h-12 rounded-full border transition-all flex items-center justify-center font-sans text-sm ${respuestas[p.id]?.valor === n ? 'bg-[#8B735B] text-white border-[#8B735B] shadow-lg scale-110' : 'text-gray-400 border-[#EAE4D9] hover:border-[#8B735B]'}`}
                       >
                         {n}
                       </button>
@@ -82,7 +102,8 @@ export default function TestHeridas() {
                   </div>
                 </div>
               ))}
-              <button onClick={calcular} className="w-full bg-[#2C2C2C] text-white py-5 rounded-full font-bold tracking-[0.2em] mt-10 shadow-lg">VER MI DIAGNÓSTICO PROFESIONAL</button>
+              <button onClick={calcular} className="w-full bg-[#2C2C2C] text-white py-6 rounded-full font-bold tracking-[0.3em] mt-10 shadow-xl hover:bg-[#4A4A4A] transition-all text-sm">VER MI DIAGNÓSTICO PROFESIONAL</button>
+              <div className="h-20"></div> {/* Espacio extra al final */}
             </div>
           </>
         ) : (
@@ -142,7 +163,7 @@ export default function TestHeridas() {
               >
                 ADQUIRIR EL MANUAL COMPLETO
               </a>
-              <Link href="/" className="text-gray-400 underline text-sm mt-4 font-sans">Volver a la portada</Link>
+              <Link href="/" className="text-gray-400 underline text-sm mt-4 font-sans hover:text-[#8B735B] transition-colors">Volver a la portada</Link>
             </div>
           </div>
         )}

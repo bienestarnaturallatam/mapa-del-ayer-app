@@ -20,6 +20,34 @@ const preguntas = [
   { id: 15, herida: "Injusticia", texto: "¿Te cuesta disfrutar del descanso sin sentir que deberías ser productivo?" },
 ];
 
+const detallesHeridas: any = {
+  "Rechazo": {
+    diagnostico: "Tu mecanismo de defensa actual es la 'huida'. Ante el conflicto, prefieres desaparecer o invalidar tus propios deseos antes de que alguien más pueda rechazarte.",
+    promesa: "En 'El Mapa del Ayer', profundizaremos en el origen de este vacío para que logres ocupar tu lugar en el mundo con autoridad y sin pedir permiso.",
+    mensaje: "Hola, obtuve 'Rechazo'. Deseo adquirir el libro para aprender a validar mi existencia."
+  },
+  "Abandono": {
+    diagnostico: "Tu sistema emocional opera bajo el miedo a la carencia. Esto te lleva a crear lazos de dependencia donde priorizas la presencia de otros sobre tu propia dignidad.",
+    promesa: "El manual te guiará a través de la 'Auto-Asistencia', dándote las herramientas para convertirte en tu propio refugio y sanar la necesidad constante de aprobación.",
+    mensaje: "Hola, mi resultado es 'Abandono'. Quiero el manual para trabajar mi seguridad personal."
+  },
+  "Humillación": {
+    diagnostico: "Has asumido el rol de 'salvador' para evitar ser juzgado. Cargas con pesos ajenos como una forma de sentir que tienes valor, olvidando tus límites básicos.",
+    promesa: "A través de las páginas de mi obra, aprenderás a soltar las culpas heredadas y a recuperar el derecho a tu libertad y placer personal sin vergüenza.",
+    mensaje: "Hola, salió 'Humillación'. Me interesa el libro para aprender a poner límites sanos."
+  },
+  "Traición": {
+    diagnostico: "Vives en un estado de hipervigilancia. El miedo a ser engañado nuevamente te obliga a controlar cada detalle de tu entorno y de tus relaciones.",
+    promesa: "El libro ofrece un protocolo de 'Entrega Consciente' para que logres desarmar tu coraza, soltar el control y volver a confiar en la vida y en los demás.",
+    mensaje: "Hola, mi herida es 'Traición'. Quiero el manual para aprender a soltar el control."
+  },
+  "Injusticia": {
+    diagnostico: "La rigidez es tu armadura. Te exiges perfección absoluta y bloqueas tu sensibilidad para no parecer débil, lo que te genera un agotamiento profundo.",
+    promesa: "En este manual, trabajaremos la 'Reconexión Sensible', permitiéndote ser imperfecto y humano para vivir con una paz que la exigencia nunca te dará.",
+    mensaje: "Hola, obtuve 'Injusticia'. Deseo el libro para aprender a vivir con menos rigidez."
+  }
+};
+
 export default function TestHeridas() {
   const [respuestas, setRespuestas] = useState<any>({});
   const [resultado, setResultado] = useState<string | null>(null);
@@ -30,10 +58,8 @@ export default function TestHeridas() {
 
   const calcular = () => {
     if (Object.keys(respuestas).length < 15) return alert("Por favor, responde las 15 preguntas.");
-    
     const puntos: any = { Rechazo: 0, Abandono: 0, Humillación: 0, Traición: 0, Injusticia: 0 };
     Object.values(respuestas).forEach((r: any) => { puntos[r.herida] += r.valor; });
-    
     const ganador = Object.entries(puntos).sort((a: any, b: any) => b[1] - a[1])[0][0];
     setResultado(ganador);
   };
@@ -61,27 +87,50 @@ export default function TestHeridas() {
                   </div>
                 </div>
               ))}
-              <button 
-                onClick={calcular} 
-                className="w-full bg-[#2C2C2C] text-white py-5 rounded-full font-bold tracking-[0.2em] mt-10 shadow-lg hover:bg-[#4A4A4A]"
-              >
-                OBTENER DIAGNÓSTICO
-              </button>
+              <button onClick={calcular} className="w-full bg-[#2C2C2C] text-white py-5 rounded-full font-bold tracking-[0.2em] mt-10 shadow-lg">VER MI DIAGNÓSTICO PROFESIONAL</button>
             </div>
           </>
         ) : (
-          <div className="text-center bg-white p-12 rounded-3xl border border-[#EAE4D9] shadow-2xl animate-fade-in mt-10">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">Tu herida principal es</h2>
-            <h3 className="text-[#8B735B] text-5xl italic font-bold mb-8">{resultado}</h3>
-            <div className="w-12 h-1 bg-[#8B735B] mx-auto mb-8"></div>
-            <p className="text-gray-600 mb-10 text-xl italic">"Es momento de transformar esta herida en tu mayor fortaleza."</p>
-            <a 
-              href="https://wa.me/51915208903" 
-              className="bg-[#25D366] text-white py-4 px-10 rounded-full font-bold shadow-lg hover:bg-[#128C7E] inline-block"
-            >
-              SANAR POR WHATSAPP
-            </a>
-            <Link href="/" className="block mt-10 text-gray-400 underline text-sm">Volver al inicio</Link>
+          <div className="text-center bg-white p-8 md:p-12 rounded-3xl border border-[#EAE4D9] shadow-2xl animate-fade-in mt-10">
+            <h2 className="text-xs uppercase tracking-[0.4em] text-gray-400 mb-4">Resultado del Análisis</h2>
+            <h3 className="text-[#8B735B] text-5xl italic font-bold mb-6">{resultado}</h3>
+            
+            <div className="text-left space-y-8 mb-10">
+              <section className="bg-[#FDFBF7] p-6 rounded-2xl border-l-4 border-[#8B735B]">
+                <h4 className="font-bold text-[#2C2C2C] mb-3 uppercase text-xs tracking-widest">Análisis del Perfil:</h4>
+                <p className="text-gray-600 leading-relaxed italic">"{detallesHeridas[resultado].diagnostico}"</p>
+              </section>
+
+              <section>
+                <h4 className="font-bold text-[#2C2C2C] mb-4 uppercase text-xs tracking-widest text-center">Lo que resolvemos en "El Mapa del Ayer":</h4>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="p-4 border border-[#F3EEE5] rounded-lg">
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      <span className="text-[#8B735B] font-bold">●</span> {detallesHeridas[resultado].promesa}
+                    </p>
+                  </div>
+                  <div className="p-4 border border-[#F3EEE5] rounded-lg bg-[#FDFBF7]">
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      <span className="text-[#8B735B] font-bold">●</span> <span className="font-bold">Protocolo de Sanación:</span> El libro contiene ejercicios prácticos diseñados para reconfigurar la memoria emocional de tu infancia.
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <p className="text-gray-500 mb-8 text-sm italic border-t border-[#F3EEE5] pt-6">
+              Este diagnóstico es el primer paso de tu viaje. La guía completa para sanar la herida de {resultado} se encuentra detallada en mi manual.
+            </p>
+
+            <div className="flex flex-col gap-4">
+              <a 
+                href={`https://wa.me/519XXXXXXXX?text=${encodeURIComponent(detallesHeridas[resultado].mensaje)}`}
+                className="bg-[#2C2C2C] text-white py-5 px-10 rounded-full font-bold shadow-lg hover:bg-[#4A4A4A] transition-all flex items-center justify-center gap-2"
+              >
+                ADQUIRIR EL MANUAL COMPLETO
+              </a>
+              <Link href="/" className="text-gray-400 underline text-sm mt-4">Volver a la portada</Link>
+            </div>
           </div>
         )}
       </div>

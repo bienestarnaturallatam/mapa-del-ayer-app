@@ -77,7 +77,7 @@ export default function TestHeridas() {
               <h2 className="text-xs uppercase tracking-[0.4em] text-gray-400 mb-6">Tu herida raíz es</h2>
               <h3 className="text-6xl mb-8 text-[#8B735B] italic font-bold">{resultado}</h3>
               <p className="text-2xl text-gray-700 mb-12 italic font-light">"{infoHeridas[resultado].consejo}"</p>
-              <a href={`https://wa.me/519XXXXXXXX?text=${encodeURIComponent(infoHeridas[resultado].mensaje)}`} target="_blank" className="bg-[#25D366] text-white py-5 px-10 rounded-full font-bold shadow-lg flex items-center justify-center gap-3 text-lg">
+              <a href={`https://wa.me/51915208903?text=${encodeURIComponent(infoHeridas[resultado].mensaje)}`} target="_blank" className="bg-[#25D366] text-white py-5 px-10 rounded-full font-bold shadow-lg flex items-center justify-center gap-3 text-lg">
                 INICIAR MI SANACIÓN (WHATSAPP)
               </a>
               <Link href="/" className="block mt-8 text-gray-400 underline decoration-dotted">Volver al inicio</Link>
